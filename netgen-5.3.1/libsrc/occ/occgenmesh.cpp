@@ -778,7 +778,7 @@ namespace netgen
 
 
          // Philippose - 15/01/2009
-         double maxh = geom.face_maxh[k-1];
+         double maxh = 100; //geom.face_maxh[k-1];
          //double maxh = mparam.maxh;
          mparam.checkoverlap = 0;
          //      int noldpoints = mesh->GetNP();
@@ -1048,6 +1048,7 @@ namespace netgen
 
             TopTools_ListIteratorOfListOfShape parent_face_list;
 
+            /*
             for(parent_face_list.Initialize(parent_faces); parent_face_list.More(); parent_face_list.Next())
             {
                TopoDS_Face parent_face = TopoDS::Face(parent_face_list.Value());
@@ -1056,6 +1057,7 @@ namespace netgen
 
                if(face_index >= 1) localh = min(localh,geom.face_maxh[face_index - 1]);
             }
+            */
 
             Handle(Geom_Curve) c = BRep_Tool::Curve(e, s0, s1);
 
