@@ -65,7 +65,7 @@ public:
 
   virtual bool CheckHypothesis(SMESH_Mesh&         aMesh,
                                const TopoDS_Shape& aShape,
-                               Hypothesis_Status&  aStatus);
+                               SMESH_Hypothesis::Hypothesis_Status&  aStatus);
 
   virtual bool Compute(SMESH_Mesh&         aMesh,
                        const TopoDS_Shape& aShape);
