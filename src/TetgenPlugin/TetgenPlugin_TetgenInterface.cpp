@@ -295,6 +295,7 @@ int TetgenPlugin_TetgenInterface::GenerateVolumeMesh(std::string tetfilename)
   std::string tetcall("tetgen ");
   tetcall+= "-"; tetcall+=switches; 
   tetcall+=" ";  tetcall+=tetinfilename; 
+  tetcall+=".poly";
   std::cout << "Calling Tetgen: " << tetcall << std::endl; 
   int retvalue = system(tetcall.c_str());
 
