@@ -33,6 +33,7 @@ include_directories(inc)
 option(MONOLITHIC_BUILD "Build one monolithic smesh library." ON)
 option(NETGEN_PLUGIN "Build the NETGEN plugin." OFF)
 option(NETGEN_INTERNAL "Use internal NETGEN sources." OFF)
+option(TETGEN_PLUGIN "Build the TETGEN plugin." OFF)
 
 #######################
 # Setup Netgen plugin #
@@ -59,6 +60,15 @@ if(NETGEN_PLUGIN)
     endif()
 endif()
 
+#######################
+# Setup Tetgen plugin #
+#######################
+if(TETGEN_PLUGIN)
+  include_directories(${TETGEN_INCLUDE_PATH})
+  link_directories(${TETGEN_LIB_PATH})
+  message(STATUS "TETGEN include: ${TETGEN_INCLUDE_PATH}")
+  message(STATUS "TETGEN library: ${TETGEN_LIB_PATH}")
+endif()
 
 ################################
 # OCE include and lib location #

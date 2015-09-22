@@ -116,6 +116,16 @@ else()
     set(NETGENPlugin_SRCS "")
 endif()
 
+if(TETGEN_PLUGIN)
+    set(TetgenPlugin_SRCS
+        TetgenPlugin/TetgenPlugin_Hypothesis.cpp
+        TetgenPlugin/TetgenPlugin_Tetgen_3D.cpp
+        TetgenPlugin/TetgenPlugin_TetgenInterface.cpp
+        )
+else()
+    set(TetgenPlugin_SRCS "")
+endif()
+
 set(StdMeshers_SRCS
     #MEFISTO2/trte.for
     MEFISTO2/aptrte.cpp
@@ -330,6 +340,7 @@ if(MONOLITHIC_BUILD)
     add_library(SMESH
         ${NETGEN_SRCS}
         ${NETGENPlugin_SRCS}
+        ${TetgenPlugin_SRCS}
         ${Driver_SRCS}
         ${DriverDAT_SRCS}
         ${DriverSTL_SRCS}
@@ -342,6 +353,9 @@ if(MONOLITHIC_BUILD)
     if(NETGEN_PLUGIN AND NETGEN_INTERNAL)
         target_link_libraries(SMESH ${ZLIB_LIBRARIES})
     endif()
+    if(TETGEN_PLUGIN)
+        target_link_libraries(SMESH ${TETGEN_LIB_PATH}/libtet.a)
+    endif()
     set_target_properties(SMESH PROPERTIES
         SOVERSION ${${PROJECT_NAME}_ABI_SOVERSION}
         VERSION ${${PROJECT_NAME}_ABI_VERSION})
@@ -353,6 +367,10 @@ else()
         if(NETGEN_INTERNAL)
             list(APPEND ${NETGENPlugin_SRCS} ${NETGEN_SRCS})
         endif()
+    endif()
+    if(TETGEN_PLUGIN)
+        list(APPEND SMESH_LIBRARIES TetgenPlugin)
+        list(APPEND ${TetgenPlugin_SRCS})
     endif()
     foreach(_lib ${SMESH_LIBRARIES})
         add_library(${_lib} ${${_lib}_SRCS})
